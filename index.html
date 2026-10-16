@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al-Ghazâlî : l'Intention</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e6; --surface:#fffaf0; --ink:#1f2a24; --muted:#5b665f;
+  --accent:#1f5c46; --gold:#a67c2e; --line:#e3d8c2; --quote:#efe6d2;
+  --quran:#1f5c46; --hadith:#8a5a14; --salaf:#5a4a7a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121815; --surface:#18201c; --ink:#ece6d8; 
+    --muted:#a3aba5; --accent:#6fc2a0; --gold:#d8b26a; --line:#2b3530; --quote:#1e2823;
+    --quran:#6fc2a0; --hadith:#e0b064; --salaf:#b6a4dc;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121815; --surface:#18201c; --ink:#ece6d8; --muted:#a3aba5;
+  --accent:#6fc2a0; --gold:#d8b26a; --line:#2b3530; --quote:#1e2823;
+  --quran:#6fc2a0; --hadith:#e0b064; --salaf:#b6a4dc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.5;overflow:hidden}
+.deck{position:relative;height:100vh;width:100vw}
+.slide{position:absolute;inset:0;display:none;overflow-y:auto;padding:48px max(16px,6vw) 90px}
+.slide.active{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.inner{max-width:1100px;margin:0 auto}
+.kicker{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;line-height:1.15}
+h1{font-size:clamp(2.3rem,5.5vw,4rem);color:var(--accent)}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--accent);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--line)}
+h3{font-size:1.35rem;color:var(--ink);margin:14px 0 8px}
+ul{list-style:none}
+li{position:relative;padding-left:20px;margin:7px 0}
+li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+li li::before{background:transparent;border:1.5px solid var(--gold)}
+li ul{margin-top:4px}
+em.ar{font-style:italic;color:var(--accent);font-weight:500}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card h3{margin-top:0}
+.ref{display:block;margin:10px 0;padding:10px 14px;border-left:4px solid var(--line);background:var(--quote);border-radius:0 8px 8px 0;font-size:.95rem}
+.ref .tag{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-right:6px;color:var(--surface);vertical-align:1px}
+.ref.q{border-color:var(--quran)} .ref.q .tag{background:var(--quran)}
+.ref.h{border-color:var(--hadith)} .ref.h .tag{background:var(--hadith)}
+.ref.s{border-color:var(--salaf)} .ref.s .tag{background:var(--salaf)}
+.ref i{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.15rem}
+.ref small{color:var(--muted);display:block;margin-top:3px;font-size:.85rem}
+.arab{display:block;font-family:Amiri,"Geeza Pro","Times New Roman",serif;font-size:1.3rem;line-height:1.9;text-align:right;direction:rtl;margin:4px 0 2px;color:var(--ink)}
+.key .arab{color:var(--surface);font-size:1.4rem}
+.ari{font-family:Amiri,"Geeza Pro",serif;font-style:normal;font-size:1.15em;color:var(--gold);margin-left:4px}
+.ref small b{color:var(--ink);font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:18px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.legend .lq::before{background:var(--quran)} .legend .lh::before{background:var(--hadith)} .legend .ls::before{background:var(--salaf)}
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:14px 0}
+.chain .step{flex:1 1 150px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center;font-size:.92rem}
+.chain .step b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.25rem;color:var(--accent)}
+.chain .arrow{align-self:center;color:var(--gold);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--surface);border-radius:10px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--quote);font-family:"Cormorant Garamond",serif;font-size:1.1rem;color:var(--accent)}
+.key{background:var(--accent);color:var(--surface);border-radius:12px;padding:16px 20px;margin-top:16px;font-family:"Cormorant Garamond",serif;font-size:1.3rem;line-height:1.35}
+.title-slide{display:none;place-items:center;text-align:center}
+.title-slide.active{display:grid}
+.title-slide .sub{font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,2.6vw,1.9rem);color:var(--ink);margin-top:10px;font-style:italic}
+.title-slide .meta{margin-top:28px;color:var(--muted);font-size:1rem}
+.ornament{color:var(--gold);font-size:1.6rem;letter-spacing:.5em;margin:18px 0}
+.muted{color:var(--muted)}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:linear-gradient(transparent,var(--bg) 40%)}
+nav button{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button:hover{border-color:var(--gold)}
+.progress{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress div{height:100%;background:var(--gold);transition:width .3s}
+.count{font-size:.85rem;color:var(--muted);min-width:56px;text-align:center}
+@media (max-width:760px){
+  body{font-size:15px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .slide{padding:28px 16px 90px}
+  .chain .arrow{display:none}
+}
+@media print{
+  body{overflow:visible}
+  .deck{height:auto}
+  .slide,.title-slide{display:block!important;position:relative;page-break-after:always;overflow:visible;animation:none}
+  nav{display:none}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1. TITRE -->
+<section class="slide title-slide active">
+  <div>
+    <div class="kicker">Cercle de Réflexion TW3 · Vendredi 16 octobre 2026</div>
+    <h1>L'intention, la pureté<br>et la sincérité</h1>
+    <div class="sub">Abû Hâmid al-Ghazâlî · <em>Kitâb an-niyya wa al-ikhlâs wa as-sidq</em> <span class="ari" lang="ar" dir="rtl">كِتَابُ النِّيَّةِ وَالْإِخْلَاصِ وَالصِّدْقِ</span></div>
+    <div class="ornament">◆ ◆ ◆</div>
+    <p class="muted">Livre VII des « œuvres salutaires » de l'<em>Iḥyâ' ʿulûm ad-dîn</em> <span class="ari" lang="ar" dir="rtl">إِحْيَاءُ عُلُومِ الدِّينِ</span> (Revivification des sciences de la religion)</p>
+    <p class="meta">Séance : de la Présentation jusqu'à la p. 34 — Première partie : <strong>L'intention</strong></p>
+  </div>
+</section>
+
+<!-- 2. PLAN -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Feuille de route</div>
+  <h2>Plan de la séance</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Première partie — L'intention</h3>
+      <ul>
+        <li>1. Les vertus de l'intention</li>
+        <li>2. La nature réelle de l'intention</li>
+        <li>3. « L'intention du croyant est plus estimable que son action »</li>
+        <li>4. Les œuvres liées à l'intention <span class="muted">(jusqu'à la p. 34)</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Comment lire les encadrés</h3>
+      <span class="ref q"><span class="tag">Coran</span><i>Verset cité</i><small>référence sourate : verset</small></span>
+      <span class="ref h"><span class="tag">Hadith</span><i>Parole prophétique</i><small>transmetteur quand il est indiqué</small></span>
+      <span class="ref s"><span class="tag">Salaf</span><i>Parole des anciens / savants</i><small>compagnons, maîtres, gnostiques</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3. PRÉSENTATION -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Présentation de l'éditeur</div>
+  <h2>Pourquoi l'intention est « vitale »</h2>
+  <div class="grid2">
+    <div>
+      <ul>
+        <li>Intention pure et action sincère = <strong>voies de la délivrance et du salut</strong>.</li>
+        <li><strong>Ash-Shâfiʿî</strong> : ce hadith couvre <em>la moitié</em> de la science sacrée → la religion est <strong>intérieure</strong> (intention = servitude du cœur) et <strong>extérieure</strong> (action = adoration du corps).</li>
+        <li><strong>Ahmad ibn Hanbal</strong> : il représente <em>le tiers</em> de l'islam → on agit avec le <strong>cœur</strong>, la <strong>langue</strong> et les <strong>membres</strong>.</li>
+        <li>L'intention est <strong>l'esprit de l'action</strong> : l'acte du cœur le plus fondamental, dont dépend la valeur de tous les autres.</li>
+        <li>Distinction clé : <strong>« intention droite »</strong> (confirmée par des actes vertueux) ≠ <strong>« bonnes intentions »</strong> dont l'Enfer est pavé (jamais mises en acte, ou sans sincérité).</li>
+      </ul>
+    </div>
+    <div>
+      <span class="ref h"><span class="tag">Hadith · ʿUmar</span><i>« Les actes ne valent que par leurs intentions, et chacun aura selon son intention. Si quelqu'un émigre en vue de Dieu et de Son envoyé… »</i><span class="arab" lang="ar" dir="rtl">«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوِ امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ»</span><small><b>Contexte :</b> l'émigration (<em>hijra</em> <span class="ari" lang="ar" dir="rtl">هِجْرَة</span>) de La Mecque à Médine, le même voyage accompli par tous. <b>→</b> Un acte extérieurement identique n'a pas la même valeur selon ce qu'on vise : c'est le hadith fondateur de tout l'ouvrage.</small></span>
+      <span class="ref h"><span class="tag">Hadith · Muʿâdh</span><i>« Accomplis tes œuvres pour Allah seul, dans ce cas, même peu d'actions te suffiront. »</i><span class="arab" lang="ar" dir="rtl">«أَخْلِصْ دِينَكَ يَكْفِكَ الْعَمَلُ الْقَلِيلُ»</span><small><b>Contexte :</b> conseil du Prophète à Muʿâdh ibn Jabal envoyé au Yémen. <b>→</b> C'est la <strong>qualité</strong> (la pureté) et non la <strong>quantité</strong> des œuvres qui pèsera dans la balance.</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 4. INTRODUCTION -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Introduction d'al-Ghazâlî</div>
+  <h2>La chaîne du salut et la triade fondatrice</h2>
+  <p>La félicité ne s'obtient que par <strong>la connaissance et l'adoration</strong>. Mais chaque étape a son « filtre » :</p>
+  <div class="chain">
+    <div class="step"><b>Les êtres</b>perdus…</div><div class="arrow">→</div>
+    <div class="step"><b>sauf ceux qui savent</b>perdus…</div><div class="arrow">→</div>
+    <div class="step"><b>sauf ceux qui agissent</b>selon leur savoir, perdus…</div><div class="arrow">→</div>
+    <div class="step"><b>sauf les sincères</b>… qui restent en grand danger</div>
+  </div>
+  <span class="arab" lang="ar" dir="rtl">«النَّاسُ كُلُّهُمْ هَلْكَى إِلَّا الْعَالِمُونَ، وَالْعَالِمُونَ كُلُّهُمْ هَلْكَى إِلَّا الْعَامِلُونَ، وَالْعَامِلُونَ كُلُّهُمْ هَلْكَى إِلَّا الْمُخْلِصُونَ، وَالْمُخْلِصُونَ عَلَى خَطَرٍ عَظِيمٍ»</span>
+  <table>
+    <tr><th>Notion</th><th>Si elle manque…</th></tr>
+    <tr><td><em class="ar">Niyya</em> <span class="ari" lang="ar" dir="rtl">نِيَّة</span> — l'intention</td><td>l'œuvre n'est que <strong>peine perdue</strong></td></tr>
+    <tr><td><em class="ar">Ikhlâṣ</em> <span class="ari" lang="ar" dir="rtl">إِخْلَاص</span> — la pureté</td><td>l'intention n'est qu'<strong>ostentation</strong> (<em class="ar">riyâ'</em> <span class="ari" lang="ar" dir="rtl">رِيَاء</span>) = hypocrisie, proche de la transgression</td></tr>
+    <tr><td><em class="ar">Ṣidq</em> <span class="ari" lang="ar" dir="rtl">صِدْق</span> — la sincérité</td><td>la pureté sans authentification par les actes n'est que <strong>poussière</strong></td></tr>
+  </table>
+  <span class="arab" lang="ar" dir="rtl">«وَالْعَمَلُ بِغَيْرِ نِيَّةٍ عَنَاءٌ، وَالنِّيَّةُ بِغَيْرِ إِخْلَاصٍ رِيَاءٌ، وَهُوَ لِلنِّفَاقِ كِفَاءٌ، وَمَعَ الْعِصْيَانِ سَوَاءٌ، وَالْإِخْلَاصُ مِنْ غَيْرِ صِدْقٍ وَتَحْقِيقٍ هَبَاءٌ»</span>
+  <div class="grid2" style="margin-top:12px">
+    <span class="ref q"><span class="tag">Coran 98:5</span><i>« Il ne leur fut rien ordonné de plus que d'adorer Dieu en Lui vouant un culte sincère. »</i><span class="arab" lang="ar" dir="rtl">﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ﴾</span><small><b>Contexte :</b> sourate « La Preuve », à propos des gens du Livre et de ce que toutes les révélations ont exigé. <b>→</b> La pureté n'est pas un supplément : c'est <strong>le cœur même de l'ordre divin</strong>. Dieu, le Riche, se passe des œuvres faites avec duplicité.</small></span>
+    <span class="ref q"><span class="tag">Coran 25:23</span><i>« Nous Nous pencherons sur les œuvres qu'ils auront accomplies, et Nous en ferons une poussière éparpillée. »</i><span class="arab" lang="ar" dir="rtl">﴿وَقَدِمْنَا إِلَىٰ مَا عَمِلُوا مِنْ عَمَلٍ فَجَعَلْنَاهُ هَبَاءً مَّنثُورًا﴾</span><small><b>Contexte :</b> scène du Jugement dernier. <b>→</b> Al-Ghazâlî l'applique à toute œuvre « partagée », faite pour un autre que Dieu : elle a l'apparence du bien mais <strong>ne pèse rien</strong>.</small></span>
+  </div>
+  <div class="key">Argument : on ne peut corriger ce qu'on ne connaît pas. Le premier devoir du serviteur est donc d'<em>apprendre</em> ce qu'est l'intention, la pureté et la sincérité.</div>
+</div></section>
+
+<!-- 5. VERTUS I -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 1</div>
+  <h2>Les vertus de l'intention (1/3) — Quatre principes</h2>
+  <div class="grid2">
+    <div>
+      <h3>1. Dieu regarde le cœur, siège de l'intention</h3>
+      <span class="ref h"><span class="tag">Hadith · Muslim</span><i>« Dieu ne prête pas attention à vos apparences et à vos biens, mais Il prête attention à vos cœurs et à vos œuvres. »</i><span class="arab" lang="ar" dir="rtl">«إِنَّ اللَّهَ لَا يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ، وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ»</span><small><b>→</b> Al-Ghazâlî en tire le raisonnement : si Dieu regarde les cœurs, c'est <strong>parce qu'ils sont le siège de l'intention</strong>. L'apparence ne trompe pas Dieu.</small></span>
+      <h3>2. L'aide divine suit l'intention</h3>
+      <span class="ref q"><span class="tag">Coran 4:35</span><i>« S'ils veulent rétablir la concorde, Dieu les y aidera par le concours de Sa providence. »</i><span class="arab" lang="ar" dir="rtl">﴿إِن يُرِيدَا إِصْلَاحًا يُوَفِّقِ اللَّهُ بَيْنَهُمَا﴾</span><small><b>Contexte :</b> conflit entre époux, où deux arbitres sont désignés pour les réconcilier. <b>→</b> Dieu <strong>subordonne Son assistance (<em>tawfîq</em> <span class="ari" lang="ar" dir="rtl">تَوْفِيق</span>) à l'intention</strong> : « s'ils veulent… ».</small></span>
+    </div>
+    <div>
+      <h3>3. L'intention vaut l'acte</h3>
+      <span class="ref h"><span class="tag">Hadith</span><i>« Jetez ce registre, il ne visait pas à Me plaire ! … Écrivez ceci et cela. — Mais il ne l'a pas fait ! — Mais il en avait l'intention. »</i><span class="arab" lang="ar" dir="rtl">«أَلْقُوا هَذِهِ الصَّحِيفَةَ فَإِنَّهُ لَمْ يُرِدْ بِمَا فِيهَا وَجْهِي … اكْتُبُوا لَهُ كَذَا وَكَذَا … إِنَّهُ لَمْ يَعْمَلْ شَيْئًا مِنْ ذَلِكَ … إِنَّهُ نَوَاهُ»</span><small><b>Contexte :</b> les anges montent le registre des bonnes œuvres d'un serviteur. <b>→</b> Double leçon : des œuvres <strong>réelles mais sans intention pure sont rejetées</strong> ; des œuvres <strong>non accomplies mais voulues sont inscrites</strong>.</small></span>
+      <h3>4. L'intention associe les hommes entre eux</h3>
+      <span class="ref h"><span class="tag">Hadith · Tirmidhî</span><i>Les quatre catégories d'hommes</i><span class="arab" lang="ar" dir="rtl">«… فَهُوَ بِنِيَّتِهِ، فَأَجْرُهُمَا سَوَاءٌ … فَهُوَ بِنِيَّتِهِ، فَوِزْرُهُمَا سَوَاءٌ»</span><small><b>Contenu :</b> le riche savant qui dépense bien, et le pauvre qui dit « si j'avais, je ferais pareil » → <strong>même récompense</strong> ; le riche ignorant qui dilapide, et celui qui l'envie → <strong>même faute</strong>. <b>→</b> Celui qui n'a pas les moyens est rattaché, par son intention, à celui qui agit.</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 6. VERTUS II -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 1</div>
+  <h2>Les vertus de l'intention (2/3) — L'intention en actes</h2>
+  <div class="grid2">
+    <div>
+      <h3>L'intention compense l'acte empêché</h3>
+      <span class="ref h"><span class="tag">Hadith · Anas</span><i>« Il est des gens à Médine qui se joignent à nous… une raison légitime les a retenus. »</i><span class="arab" lang="ar" dir="rtl">«إِنَّ بِالْمَدِينَةِ أَقْوَامًا مَا قَطَعْنَا وَادِيًا … إِلَّا شَرِكُونَا فِي ذَلِكَ وَهُمْ بِالْمَدِينَةِ … حَبَسَهُمُ الْعُذْرُ فَشَرِكُوا بِحُسْنِ النِّيَّةِ»</span><small><b>Contexte :</b> l'expédition de Tabûk ; des compagnons malades ou sans monture sont restés à Médine. <b>→</b> Associés à chaque pas et à chaque dépense du combat <strong>par leur seule intention</strong>.</small></span>
+      <h3>On obtient exactement ce que l'on vise</h3>
+      <span class="ref h"><span class="tag">Ibn Masʿûd</span><i>« L'exilé d'Umm Qays »</i><span class="arab" lang="ar" dir="rtl">«مُهَاجِرُ أُمِّ قَيْسٍ»</span><small><b>Contexte :</b> un homme avait émigré à Médine non pour Dieu mais pour épouser une femme, Umm Qays ; les gens l'ont surnommé ainsi. <b>→</b> L'acte prend le nom de son intention. (Même leçon dans les récits de « la victime de l'âne » et du combattant payé.)</small></span>
+      <span class="ref h"><span class="tag">Hadith · Bukhârî & Muslim</span><i>« Celui qui combat pour que la parole de Dieu soit au-dessus de toute autre, celui-là combat dans la voie de Dieu. »</i><span class="arab" lang="ar" dir="rtl">«مَنْ قَاتَلَ لِتَكُونَ كَلِمَةُ اللَّهِ هِيَ الْعُلْيَا فَهُوَ فِي سَبِيلِ اللَّهِ»</span><small><b>Contexte :</b> les anges notent le rang de chaque combattant : l'un pour le butin, l'autre par colère, l'autre par esprit tribal. <b>→</b> Même geste, statuts opposés : <strong>ne jamais juger sur l'apparence</strong>.</small></span>
+    </div>
+    <div>
+      <h3>L'intention mauvaise condamne</h3>
+      <span class="ref h"><span class="tag">Hadith · Abû Bakra</span><i>« Lorsque deux musulmans croisent le fer, le tueur et la victime sont en Enfer. — Pourquoi la victime ? — Il voulait tuer son compagnon ! »</i><span class="arab" lang="ar" dir="rtl">«إِذَا الْتَقَى الْمُسْلِمَانِ بِسَيْفَيْهِمَا فَالْقَاتِلُ وَالْمَقْتُولُ فِي النَّارِ … إِنَّهُ أَرَادَ قَتْلَ صَاحِبِهِ»</span><small><b>→</b> La victime n'a pas tué, mais elle <strong>en avait la ferme intention</strong> : l'intention résolue engage la responsabilité, en mal comme en bien.</small></span>
+      <span class="ref h"><span class="tag">Hadith · Abû Hurayra</span><i>Épouser avec une dot sans intention de la payer = adultère ; emprunter sans intention de rendre = vol.</i><span class="arab" lang="ar" dir="rtl">«مَنْ تَزَوَّجَ امْرَأَةً عَلَى صَدَاقٍ وَهُوَ لَا يَنْوِي أَدَاءَهُ فَهُوَ زَانٍ، وَمَنِ ادَّانَ دَيْنًا وَهُوَ لَا يَنْوِي قَضَاءَهُ فَهُوَ سَارِقٌ»</span><small><b>→</b> Le contrat est licite en apparence, mais l'intention cachée <strong>le transforme en péché grave</strong>.</small></span>
+      <h3>Ressuscités selon l'intention</h3>
+      <span class="ref h"><span class="tag">Hadith · Umm Salama</span><i>« Chacun sera ressuscité selon son intention. »</i><span class="arab" lang="ar" dir="rtl">«يُبْعَثُونَ عَلَى نِيَّاتِهِمْ»</span><small><b>Contexte :</b> Umm Salama demande ce qu'il advient de ceux qui avaient rejoint une armée par contrainte ou pour un salaire. <b>→</b> Le jugement porte sur <strong>la disposition intérieure</strong>, non sur la présence dans les rangs.</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 7. VERTUS III -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 1</div>
+  <h2>Les vertus de l'intention (3/3) — Paroles des anciens</h2>
+  <div class="grid2">
+    <div>
+      <span class="ref s"><span class="tag">Ibn al-Mubârak (un prédécesseur)</span><i>« Combien de petites œuvres rendues considérables par l'intention, et de grandes rendues méprisables par l'intention. »</i><span class="arab" lang="ar" dir="rtl">«رُبَّ عَمَلٍ صَغِيرٍ تُعَظِّمُهُ النِّيَّةُ، وَرُبَّ عَمَلٍ كَبِيرٍ تُصَغِّرُهُ النِّيَّةُ»</span><small><b>→</b> La taille d'une œuvre aux yeux de Dieu se mesure à l'intention, non à l'effort visible.</small></span>
+      <span class="ref s"><span class="tag">Sufyân ath-Thawrî</span><i>« Ils apprenaient l'intention pour l'action comme vous apprenez l'action. »</i><span class="arab" lang="ar" dir="rtl">«كَانُوا يَتَعَلَّمُونَ النِّيَّةَ لِلْعَمَلِ كَمَا تَتَعَلَّمُونَ الْعَمَلَ»</span><small><b>Contexte :</b> à propos des pieux anciens. <b>→</b> L'intention <strong>s'apprend</strong> : c'est une science à part entière, préalable à l'action.</small></span>
+      <span class="ref s"><span class="tag">Al-Hasan al-Baṣrî</span><i>« L'éternel séjour des gens au Paradis ou en Enfer n'est que le fait de leurs intentions. »</i><span class="arab" lang="ar" dir="rtl">«إِنَّمَا خُلِّدَ أَهْلُ الْجَنَّةِ فِي الْجَنَّةِ وَأَهْلُ النَّارِ فِي النَّارِ بِالنِّيَّاتِ»</span><small><b>→</b> Des œuvres limitées dans le temps ne peuvent expliquer une rétribution éternelle : c'est <strong>l'intention, disposition permanente du cœur</strong>, qui la fonde.</small></span>
+    </div>
+    <div>
+      <span class="ref s"><span class="tag">Bilâl ibn Saʿd</span><i>Dieu observe la parole, puis l'action, puis le scrupule, puis l'intention.</i><span class="arab" lang="ar" dir="rtl">«إِنَّ الْعَبْدَ لَيَقُولُ قَوْلَ مُؤْمِنٍ فَلَا يَدَعُهُ اللَّهُ حَتَّى يَنْظُرَ فِي عَمَلِهِ، فَإِذَا عَمِلَ لَمْ يَدَعْهُ حَتَّى يَنْظُرَ فِي وَرَعِهِ، فَإِذَا تَوَرَّعَ لَمْ يَدَعْهُ حَتَّى يَنْظُرَ مَاذَا نَوَى»</span><small><b>→</b> Gradation : l'intention est le <strong>dernier et le plus profond critère</strong> ; si elle est bonne, tout le reste l'est à plus forte raison.</small></span>
+      <span class="ref q"><span class="tag">Coran 47:31</span><i>« Nous vous éprouverons afin de savoir ceux qui combattent et ceux qui sont patients, et afin de mettre votre réalité en évidence. »</i><span class="arab" lang="ar" dir="rtl">﴿وَلَنَبْلُوَنَّكُمْ حَتَّىٰ نَعْلَمَ الْمُجَاهِدِينَ مِنكُمْ وَالصَّابِرِينَ وَنَبْلُوَ أَخْبَارَكُمْ﴾</span><small><b>Contexte :</b> Fuḍayl ibn ʿIyâḍ pleurait en le récitant : « Si Tu nous éprouves, Tu révéleras notre réalité inavouable ! » <b>→</b> L'épreuve <strong>dévoile l'intention réelle</strong> cachée derrière les actes.</small></span>
+      <span class="ref s"><span class="tag">Un savant à un aspirant</span><i>« Fais le bien autant que possible ; quand la lassitude te gagne, entretiens l'intention, car celui qui projette le bien est comme celui qui l'accomplit. »</i><span class="arab" lang="ar" dir="rtl">«… فَإِنَّ الْهَامَّ بِعَمَلِ الْخَيْرِ كَعَامِلِهِ»</span><small><b>Contexte :</b> l'aspirant voulait une œuvre qu'il ne cesserait jamais, jour et nuit. <b>→</b> Seule l'intention permet d'être <strong>en adoration à chaque instant</strong>.</small></span>
+    </div>
+  </div>
+  <div class="key">Conclusion du chapitre : l'intention est le fondement des œuvres. Une action n'est bonne qu'assortie d'une bonne intention ; la bonne intention est un bien en soi, même empêchée de se réaliser.</div>
+</div></section>
+
+<!-- 8. NATURE -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 2</div>
+  <h2>La nature réelle de l'intention</h2>
+  <ul>
+    <li><em class="ar">Niyya</em> <span class="ari" lang="ar" dir="rtl">نِيَّة</span> (intention) = <em class="ar">irâda</em> <span class="ari" lang="ar" dir="rtl">إِرَادَة</span> (volonté) = <em class="ar">qaṣd</em> <span class="ari" lang="ar" dir="rtl">قَصْد</span> (objectif) : une seule réalité, <strong>une disposition du cœur</strong>.</li>
+    <li>Tout acte librement choisi (mouvement <em>ou</em> abstention) exige <strong>trois conditions</strong> :</li>
+  </ul>
+  <div class="chain">
+    <div class="step"><b>Science</b><em class="ar">ʿilm</em> <span class="ari" lang="ar" dir="rtl">عِلْم</span><br>fondement et condition : on ne veut pas ce qu'on ignore</div><div class="arrow">→</div>
+    <div class="step"><b>Volonté / intention</b><em class="ar">irâda</em> <span class="ari" lang="ar" dir="rtl">إِرَادَة</span><br>inclination du cœur vers ce qu'il juge bon pour lui, maintenant ou plus tard</div><div class="arrow">→</div>
+    <div class="step"><b>Capacité / action</b><em class="ar">qudra · ʿamal</em> <span class="ari" lang="ar" dir="rtl">قُدْرَة · عَمَل</span><br>fruit et conséquence : la puissance meut les membres</div>
+  </div>
+  <div class="grid2">
+    <div>
+      <h3>L'exemple de la nourriture</h3>
+      <ul>
+        <li>Voir et savoir que la nourriture convient <strong>ne suffit pas</strong> → il faut le désir.</li>
+        <li>Le désir <strong>ne suffit pas</strong> → il faut la capacité (membres, force).</li>
+        <li>La capacité <strong>sert</strong> la volonté ; la volonté <strong>dépend</strong> de la conviction et de la connaissance.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Définition retenue</h3>
+      <ul>
+        <li>Le <strong>mobile</strong> = l'intérêt, l'objet convoité (le but).</li>
+        <li>L'<strong>intention</strong> = le mouvement de l'âme vers ce but.</li>
+        <li>L'<strong>action</strong> = la puissance qui meut les membres au service de cette volonté.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- 9. QUATRE MOBILES -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 2</div>
+  <h2>Les quatre configurations du mobile</h2>
+  <table>
+    <tr><th>Configuration</th><th>Image concrète</th><th>Exemple religieux / moral</th></tr>
+    <tr><td><strong>1. Mobile unique</strong><br>→ intention « pure », <em class="ar">ikhlâṣ</em> <span class="ari" lang="ar" dir="rtl">إِخْلَاص</span></td><td>Un homme fuit un fauve, et rien d'autre</td><td>Aucun autre motif ne s'y associe</td></tr>
+    <tr><td><strong>2. Mobiles concordants</strong><br>chacun suffirait seul</td><td>Deux hommes portent une charge que chacun pourrait porter seul</td><td>Donner à un proche <em>parce que</em> pauvre <em>et</em> proche ; jeûner le jour de ʿArafat qui coïncide avec une diète médicale</td></tr>
+    <tr><td><strong>3. Mobiles nécessaires l'un à l'autre</strong><br>aucun ne suffit seul</td><td>Deux hommes portent une charge que nul ne porterait seul</td><td>Ne donner qu'au proche <em>et</em> démuni ; faire l'aumône en public : espoir de récompense + regard des gens</td></tr>
+    <tr><td><strong>4. Mobiles confortants</strong><br>l'un suffit, l'autre aide</td><td>Un homme faible aide un homme fort</td><td>L'habitué de la prière que le regard des autres rend son effort plus léger — il prierait seul, mais pas par ostentation seule</td></tr>
+  </table>
+  <div class="key">« Les œuvres ne valent que par leur intention » : l'action n'a pas de statut propre — elle <em>hérite</em> du statut du mobile qui la motive.<span class="arab" lang="ar" dir="rtl">«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ»</span></div>
+</div></section>
+
+<!-- 10. INTENTION > ACTION : interprétations -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 3</div>
+  <h2>« L'intention du croyant est plus estimable que son action »</h2>
+  <span class="ref h"><span class="tag">Hadith</span><i>« L'intention du croyant est meilleure que son action. »</i><span class="arab" lang="ar" dir="rtl">«نِيَّةُ الْمُؤْمِنِ خَيْرٌ مِنْ عَمَلِهِ»</span><small><b>Problème :</b> comment une simple intention peut-elle valoir plus que l'acte qui la réalise ? Al-Ghazâlî écarte trois lectures avant de donner le vrai sens.</small></span>
+  <div class="grid3">
+    <div class="card"><h3>✗ Parce qu'elle est secrète</h3><p>Vrai (les œuvres cachées valent mieux), mais insuffisant : même pour un acte intérieur (invoquer, réfléchir), l'intention reste supérieure à l'acte.</p></div>
+    <div class="card"><h3>✗ Parce qu'elle dure plus</h3><p>Faux : l'intention de prier ne dure qu'un instant, la prière bien plus. Et la quantité n'est pas le critère.</p></div>
+    <div class="card"><h3>✗ Intention seule &gt; acte seul</h3><p>Vrai mais hors sujet : un acte sans intention n'a aucun bien ; or on compare deux choses <em>toutes deux bonnes</em>.</p></div>
+  </div>
+  <div class="key">Sens retenu : dans une même œuvre de piété, l'intention et l'action sont toutes deux un bien ; mais <em>l'effet de l'intention sur le but est plus grand</em> que celui de l'action.</div>
+</div></section>
+
+<!-- 11. POURQUOI -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 3</div>
+  <h2>Pourquoi le cœur prime : l'argument de la finalité</h2>
+  <p>Analogie : « le pain vaut mieux que les fruits » <em>par rapport au but</em> de l'alimentation. Les œuvres de piété sont <strong>la nourriture des cœurs</strong>. Quel est le but ?</p>
+  <div class="chain">
+    <div class="step"><b>Cœur affranchi</b>du bas-monde et des passions</div><div class="arrow">→</div>
+    <div class="step"><b>Invocation & réflexion</b>assidues (<em class="ar">dhikr · fikr</em> <span class="ari" lang="ar" dir="rtl">ذِكْر · فِكْر</span>)</div><div class="arrow">→</div>
+    <div class="step"><b>Intimité & connaissance</b>de Dieu</div><div class="arrow">→</div>
+    <div class="step"><b>Amour</b>suit nécessairement la connaissance</div><div class="arrow">→</div>
+    <div class="step"><b>Félicité</b>de la rencontre de Dieu</div>
+  </div>
+  <div class="grid2">
+    <ul>
+      <li>L'inclination au bien se <strong>renforce par la pratique</strong> et s'éteint quand on la contrarie (exemple du regard sur un beau visage).</li>
+      <li>Corps et cœur s'influencent, mais <strong>le cœur est le régent</strong>, les membres ses servants : le cœur est la fin, les membres le moyen.</li>
+      <li>Image du <strong>baume sur la poitrine</strong> vs le <strong>remède avalé</strong> : ce qui atteint directement l'organe malade est plus efficace.</li>
+      <li>La prosternation n'est pas une fin : elle <strong>imprime l'humilité</strong> dans le cœur.</li>
+    </ul>
+    <div>
+      <span class="ref h"><span class="tag">Hadith · Bukhârî & Muslim</span><i>« Il est dans le corps un fragment de chair : est-il sain, que le corps entier l'est aussi. »</i><span class="arab" lang="ar" dir="rtl">«أَلَا وَإِنَّ فِي الْجَسَدِ مُضْغَةً إِذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ»</span><small><b>Contexte :</b> fin du hadith sur le licite, l'illicite et les choses ambiguës ; ce fragment, c'est le cœur. <b>→</b> Le cœur <strong>gouverne</strong> les membres : réformer l'intérieur, c'est réformer tout l'être.</small></span>
+      <span class="ref q"><span class="tag">Coran 22:37</span><i>« Ni leur chair ni leur sang ne vous vaudront [la faveur] de Dieu. Mais c'est votre piété qui vous la vaudra. »</i><span class="arab" lang="ar" dir="rtl">﴿لَن يَنَالَ اللَّهَ لُحُومُهَا وَلَا دِمَاؤُهَا وَلَٰكِن يَنَالُهُ التَّقْوَىٰ مِنكُمْ﴾</span><small><b>Contexte :</b> les bêtes sacrifiées lors du pèlerinage. <b>→</b> Le but du sacrifice n'est pas de faire couler le sang mais d'affirmer <strong>l'amour de Dieu sur l'amour de soi</strong> ; or la piété (<em class="ar">taqwâ</em> <span class="ari" lang="ar" dir="rtl">تَقْوَى</span>) est une disposition du cœur.</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 12. CONSÉQUENCES -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 3</div>
+  <h2>Conséquences : acte inconscient, acte ostentatoire</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Acte sans intention = <em class="ar">bâṭil</em> <span class="ari" lang="ar" dir="rtl">بَاطِل</span></h3>
+      <ul>
+        <li>Essuyer les larmes d'un orphelin le cœur absent, « comme on essuie un tissu » : rien n'atteint le cœur.</li>
+        <li>Se prosterner distrait : le front sur le sol n'imprime aucune humilité — <strong>il est égal de le faire ou non</strong>.</li>
+        <li>Un acte sans effet sur son but est dit « vain, invalide » (<em class="ar">bâṭil</em> <span class="ari" lang="ar" dir="rtl">بَاطِل</span>).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Acte ostentatoire = pire que rien</h3>
+      <ul>
+        <li>Agir par <em class="ar">riyâ'</em> <span class="ari" lang="ar" dir="rtl">رِيَاء</span> ou pour flatter <strong>accroît le mal</strong>.</li>
+        <li>Il ne nourrit pas la bonne disposition et <strong>nourrit celle qu'il faudrait réprimer</strong>.</li>
+        <li>L'ostentation relève de l'amour du bas-monde.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="ref h"><span class="tag">Hadith · Bukhârî & Muslim</span><i>« Celui qui songe à une bonne action sans l'accomplir, une bonne action lui est comptée. »</i><span class="arab" lang="ar" dir="rtl">«مَنْ هَمَّ بِحَسَنَةٍ فَلَمْ يَعْمَلْهَا كُتِبَتْ لَهُ حَسَنَةٌ»</span><small><b>→</b> Expliqué par ce qui précède : la pensée du bien traduit déjà l'inclination du cœur vers le bien et son détachement des passions — <strong>c'est la finalité même des œuvres</strong>. L'acte ne fait que la parfaire et la confirmer.</small></span>
+</div></section>
+
+<!-- 13. TRANSGRESSIONS -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 4</div>
+  <h2>Les œuvres liées à l'intention : 1. les transgressions</h2>
+  <div class="chain">
+    <div class="step"><b>Transgressions</b><em class="ar">maʿâṣî</em> <span class="ari" lang="ar" dir="rtl">مَعَاصٍ</span> — ne changent pas</div>
+    <div class="step"><b>Observances</b><em class="ar">ṭâʿât</em> <span class="ari" lang="ar" dir="rtl">طَاعَات</span> — peuvent devenir transgression</div>
+    <div class="step"><b>Actes permis</b><em class="ar">mubâḥât</em> <span class="ari" lang="ar" dir="rtl">مُبَاحَات</span> — peuvent devenir l'un ou l'autre</div>
+  </div>
+  <div class="grid2">
+    <ul>
+      <li>Une bonne intention <strong>ne rend pas licite</strong> un acte interdit : médire pour plaire à un tiers, nourrir un pauvre avec le bien d'autrui, bâtir une mosquée avec de l'argent illicite.</li>
+      <li>Vouloir faire le bien <strong>par le mal</strong> est <strong>un mal de plus</strong>. Le bien se mesure à l'aune de la Loi.</li>
+      <li>L'ignorance n'excuse pas : <strong>chercher la science est un devoir</strong> (sauf pour le nouveau converti).</li>
+      <li>Derrière cette illusion : un <strong>désir caché</strong> (notoriété) dont se sert le Diable.</li>
+      <li>Critique des <strong>savants qui enseignent à des étudiants malintentionnés</strong> en se cachant derrière « les actes ne valent que par les intentions ».</li>
+    </ul>
+    <div>
+      <span class="ref s"><span class="tag">Sahl at-Tustarî</span><i>« Il n'est pas de transgression plus grande que l'ignorance… — Et plus grave encore ? — Ignorer que l'on est ignorant. »</i><span class="arab" lang="ar" dir="rtl">«مَا عُصِيَ اللَّهُ بِمَعْصِيَةٍ أَعْظَمَ مِنَ الْجَهْلِ … قَالَ: نَعَمْ، الْجَهْلُ بِالْجَهْلِ»</span><small><b>→</b> Celui qui se croit savant <strong>ne cherchera jamais à apprendre</strong> : c'est la racine de l'illusion qui fait croire qu'un péché peut devenir bon par l'intention.</small></span>
+      <span class="ref q"><span class="tag">Coran 21:7</span><i>« Demandez aux détenteurs des écritures si vous êtes dans l'ignorance. »</i><span class="arab" lang="ar" dir="rtl">﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾</span><small><b>→</b> L'ignorance n'est pas une excuse puisqu'on a <strong>le devoir de s'informer</strong> auprès de ceux qui savent.</small></span>
+      <span class="ref h"><span class="tag">Hadith</span><i>« Dieu est doué de trois cents vertus… la plus estimable à Ses yeux est la générosité. »</i><span class="arab" lang="ar" dir="rtl">«إِنَّ لِلَّهِ تَعَالَى ثَلَاثَمِائَةِ خُلُقٍ، مَنْ تَقَرَّبَ إِلَيْهِ بِوَاحِدٍ مِنْهَا دَخَلَ الْجَنَّةَ، وَأَحَبُّهَا إِلَيْهِ السَّخَاءُ»</span><small><b>Contexte :</b> analogie de celui qui offre sabre et chevaux à un brigand « par générosité ». <b>→</b> Même la plus aimée des vertus devient <strong>interdite</strong> quand elle arme le mal : de même, transmettre la science à qui s'en servira pour ses passions.</small></span>
+      <span class="ref s"><span class="tag">Ahmad ibn Hanbal</span><i>« Tu as empiété sur la route des musulmans de quelques centimètres. Tu n'es donc pas habilité à transmettre la science. »</i><span class="arab" lang="ar" dir="rtl">«بَلَغَنِي أَنَّكَ طَيَّنْتَ حَائِطَ دَارِكَ مِنْ جَانِبِ الشَّارِعِ، وَقَدْ أَخَذْتَ قَدْرَ أُنْمُلَةٍ مِنْ شَارِعِ الْمُسْلِمِينَ، فَلَا تَصْلُحُ لِنَقْلِ الْعِلْمِ»</span><small><b>Contexte :</b> l'imam cesse de parler à un disciple de longue date qui avait enduit son mur côté rue. <b>→</b> Les anciens <strong>vérifiaient la conduite</strong> de ceux à qui ils transmettaient le savoir.</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 14. OBSERVANCES -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 4</div>
+  <h2>2. Les observances : validité et intentions multiples</h2>
+  <ul>
+    <li><strong>Validité</strong> : accomplie pour adorer Dieu seul ; par ostentation, elle devient <strong>transgression</strong>.</li>
+    <li><strong>Mérites corollaires</strong> : une même observance peut porter <strong>plusieurs bonnes intentions</strong>, chacune récompensée — et chaque bonne action compte pour dix.</li>
+  </ul>
+  <h3>Exemple : les 8 intentions possibles du recueillement à la mosquée</h3>
+  <div class="grid2">
+    <div>
+      <span class="ref h"><span class="tag">1 · Rendre visite à Dieu</span><i>« Quiconque demeure dans la mosquée est en visite chez Dieu ; il est du devoir de l'hôte d'honorer son invité. »</i><span class="arab" lang="ar" dir="rtl">«مَنْ قَعَدَ فِي الْمَسْجِدِ فَقَدْ زَارَ اللَّهَ تَعَالَى، وَحَقٌّ عَلَى الْمَزُورِ إِكْرَامُ زَائِرِهِ»</span><small><b>→</b> La mosquée est la demeure de Dieu : y entrer avec l'intention d'une visite, c'est <strong>espérer l'honneur dû à l'invité</strong>.</small></span>
+      <span class="ref q"><span class="tag">2 · Attendre la prière · Coran 3:200</span><i>« Ô croyants, soyez endurants, rivalisez de constance et restez vigilants ! »</i><span class="arab" lang="ar" dir="rtl">﴿يَا أَيُّهَا الَّذِينَ آمَنُوا اصْبِرُوا وَصَابِرُوا وَرَابِطُوا﴾</span><small><b>Interprétation :</b> selon Abû Salama, ce verset vise l'attente entre deux prières. <b>→</b> Celui qui attend la prière <strong>est compté comme en prière</strong> tout ce temps.</small></span>
+      <span class="ref h"><span class="tag">3 · Se retirer du monde</span><i>« La vie monacale de ma communauté consiste à se recueillir dans les mosquées. »</i><span class="arab" lang="ar" dir="rtl">«رَهْبَانِيَّةُ أُمَّتِي الْقُعُودُ فِي الْمَسَاجِدِ»</span><small><b>→</b> Retenir son regard, son ouïe et ses gestes est une forme d'<strong>ascèse</strong>, sans quitter la société comme les moines.</small></span>
+    </div>
+    <ul>
+      <li><strong>4.</strong> Concentrer le cœur sur Dieu et l'au-delà, rejeter les pensées parasites.</li>
+      <li><strong>5.</strong> Invoquer Dieu ou écouter le rappel — le Prophète compare celui qui va à la mosquée pour cela à <strong>un combattant dans la voie de Dieu</strong>.</li>
+      <li><strong>6.</strong> Se rendre utile par son savoir : commander le bien, proscrire le mal.</li>
+      <li><strong>7.</strong> Rendre service à un frère en religion.</li>
+      <li><strong>8.</strong> Renoncer aux péchés par pudeur envers Dieu.</li>
+      <li><span class="ref s"><span class="tag">Al-Ḥasan, fils de ʿAlî</span><i>Sept grâces pour l'assidu de la mosquée : un frère utile, une miséricorde, une science, une parole qui guide, une parole qui préserve, renoncer au péché par crainte, ou par pudeur.</i><span class="arab" lang="ar" dir="rtl">«مَنْ أَدْمَنَ الِاخْتِلَافَ إِلَى الْمَسْجِدِ رَزَقَهُ اللَّهُ إِحْدَى سَبْعِ خِصَالٍ: أَخًا مُسْتَفَادًا فِي اللَّهِ، أَوْ رَحْمَةً مُسْتَنْزَلَةً، أَوْ عِلْمًا مُسْتَطْرَفًا، أَوْ كَلِمَةً تَدُلُّهُ عَلَى هُدًى، أَوْ تَصْرِفُهُ عَنْ رَدًى، أَوْ يَتْرُكُ الذُّنُوبَ خَشْيَةً أَوْ حَيَاءً»</span><small><b>→</b> Résume les intentions 5 à 8 : chacune ouvre la porte à <strong>un fruit spirituel distinct</strong>.</small></span></li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- 15. PERMIS -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 4</div>
+  <h2>3. Les actes permis : tout peut devenir adoration</h2>
+  <div class="grid2">
+    <div>
+      <ul>
+        <li>Tout acte permis peut, par l'intention, devenir <strong>une dévotion</strong> — d'où le regret de voir les gens agir avec insouciance.</li>
+        <li><strong>Le parfum</strong> (cas d'étude) :
+          <ul>
+            <li><em>Mauvaises intentions</em> : vanité, faire jalouser, séduire → transgression (« odeur de cadavre » au Jugement).</li>
+            <li><em>Simple plaisir</em> → pas un péché, mais <strong>objet de comptes</strong> et moindre part dans l'au-delà.</li>
+            <li><em>Bonnes intentions</em> : suivre la Sunna du vendredi, honorer la mosquée, épargner ses voisins, fermer la porte à la médisance, aiguiser son intellect (ash-Shâfiʿî : « la douce exhalaison ajoute à la raison »).<span class="arab" lang="ar" dir="rtl">«مَنْ طَابَ رِيحُهُ زَادَ عَقْلُهُ»</span></li>
+          </ul>
+        </li>
+        <li><strong>La pensée n'est pas l'intention</strong> : elle ne naît que dans un cœur tourné vers l'au-delà.</li>
+        <li>Manger pour se fortifier dans l'adoration, s'unir à son épouse pour préserver sa religion et avoir une descendance pieuse = <strong>observances</strong>.</li>
+      </ul>
+    </div>
+    <div>
+      <span class="ref h"><span class="tag">Hadith</span><i>« Le licite fera l'objet de comptes, l'illicite fera l'objet de sanction. »</i><span class="arab" lang="ar" dir="rtl">«حَلَالُهَا حِسَابٌ وَحَرَامُهَا عِقَابٌ»</span><small><b>→</b> Même le permis n'est pas « neutre » : on sera interrogé sur <strong>pourquoi</strong> on l'a fait (jusqu'au khôl des yeux, selon un hadith de Muʿâdh).</small></span>
+      <span class="ref q"><span class="tag">Coran 6:108</span><i>« N'insultez pas ceux qu'ils adorent en dehors de Dieu, car ils insulteraient Dieu par hostilité et ignorance. »</i><span class="arab" lang="ar" dir="rtl">﴿وَلَا تَسُبُّوا الَّذِينَ يَدْعُونَ مِن دُونِ اللَّهِ فَيَسُبُّوا اللَّهَ عَدْوًا بِغَيْرِ عِلْمٍ﴾</span><small><b>Contexte :</b> cité pour justifier l'intention de « fermer la porte à la médisance » en se parfumant. <b>→</b> <strong>Provoquer le mal chez autrui participe du mal</strong>.</small></span>
+      <span class="ref s"><span class="tag">Un gnostique</span><i>« J'aime formuler une intention avant toute action, même manger, boire, dormir ou aller aux toilettes. »</i><span class="arab" lang="ar" dir="rtl">«إِنِّي لَأَسْتَحِبُّ أَنْ يَكُونَ لِي فِي كُلِّ شَيْءٍ نِيَّةٌ، حَتَّى فِي أَكْلِي وَشُرْبِي وَنَوْمِي وَدُخُولِي الْخَلَاءَ»</span><small><b>→</b> Tout ce qui préserve le corps et libère le cœur <strong>sert la religion</strong> : le quotidien entier peut devenir adoration.</small></span>
+      <span class="ref h"><span class="tag">Hadith · le « failli »</span><i>Au Jugement, celui qui a lésé autrui voit ses bonnes œuvres données à ses victimes, puis leurs fautes lui sont imputées.</i><span class="arab" lang="ar" dir="rtl">«… فَيُعْطَى هَذَا مِنْ حَسَنَاتِهِ وَهَذَا مِنْ حَسَنَاتِهِ، فَإِنْ فَنِيَتْ حَسَنَاتُهُ قَبْلَ أَنْ يُقْضَى مَا عَلَيْهِ أُخِذَ مِنْ خَطَايَاهُمْ فَطُرِحَتْ عَلَيْهِ ثُمَّ طُرِحَ فِي النَّارِ»</span><small><b>Contexte :</b> conseil face à la calomnie ou à une perte d'argent. <b>→</b> Garder le cœur serein et ne pas répliquer, avec l'intention que <strong>les bonnes œuvres du calomniateur nous reviendront</strong>.</small></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- 16. VIGILANCE -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Partie I · Chapitre 4 · jusqu'à la p. 34</div>
+  <h2>Vigilance : sonder son intention, même dans l'abstention</h2>
+  <div class="grid2">
+    <div>
+      <span class="ref q"><span class="tag">Coran 50:18</span><i>« [Le serviteur] ne dit mot qui ne soit sous le regard d'un observateur averti. »</i><span class="arab" lang="ar" dir="rtl">﴿مَّا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾</span><small><b>Contexte :</b> les deux anges qui consignent les actes. <b>→</b> Aucun geste n'est insignifiant : il faut <strong>s'examiner avant d'être examiné</strong>.</small></span>
+      <span class="ref s"><span class="tag">Un prédécesseur</span><i>« Celui qui néglige la terre de son voisin saura bientôt ce qu'il en coûte ! »</i><span class="arab" lang="ar" dir="rtl">«سَيَعْلَمُ الْمُسْتَخِفُّ بِالتُّرَابِ مَا يَلْقَى غَدًا مِنْ طُولِ الْحِسَابِ»</span><small><b>Contexte :</b> il avait pris un peu de terre du mur de son voisin pour sécher l'encre d'un livre, en se disant « ce n'est qu'un peu de terre » ; une voix l'avertit. <b>→</b> Les <strong>droits d'autrui</strong>, même minimes, seront réclamés.</small></span>
+      <span class="ref s"><span class="tag">Sufyân ath-Thawrî</span><i>« Je l'ai revêtu pour Dieu, je ne veux pas le rajuster pour un autre. »</i><span class="arab" lang="ar" dir="rtl">«لَبِسْتُهُ لِلَّهِ تَعَالَى، وَلَا أُرِيدُ أَنْ أُسَوِّيَهُ لِغَيْرِ اللَّهِ»</span><small><b>Contexte :</b> pendant la prière, on lui signale que son habit est à l'envers. <b>→</b> Ne pas laisser <strong>le regard des gens</strong> modifier un acte commencé pour Dieu.</small></span>
+    </div>
+    <div>
+      <ul>
+        <li><strong>S'abstenir est aussi une action</strong> → l'inaction doit être motivée par une intention juste.</li>
+        <li>Ne pas se fier aux <strong>apparences de bienfaisance</strong> : sonder les motivations secrètes.</li>
+      </ul>
+      <span class="ref s"><span class="tag">Le prophète Zacharie</span><i>« Je travaille pour des gens qui m'ont donné ce pain pour avoir la force de faire leur travail. »</i><span class="arab" lang="ar" dir="rtl">«إِنِّي أَجِيرٌ لِقَوْمٍ، وَقَدْ أَعْطَوْنِي هَذَا الرَّغِيفَ لِأَتَقَوَّى بِهِ عَلَى عَمَلِهِمْ …»</span><small><b>Contexte :</b> ouvrier, il ne partage pas son pain avec des visiteurs surpris de ce manque de générosité. <b>→</b> <strong>L'acte gracieux ne prime pas sur le devoir</strong> : ce qui semble avare était en réalité scrupule.</small></span>
+      <span class="ref s"><span class="tag">Sufyân ath-Thawrî</span><i>« Si un homme invite quelqu'un à manger sans en avoir envie : deux péchés s'il accepte, un s'il refuse. »</i><span class="arab" lang="ar" dir="rtl">«إِذَا دَعَا الرَّجُلُ أَخَاهُ إِلَى طَعَامٍ وَهُوَ لَا يَشْتَهِي أَنْ يُجِيبَهُ فَأَجَابَهُ فَعَلَيْهِ ذَنْبَانِ، وَإِنْ لَمْ يُجِبْهُ فَعَلَيْهِ ذَنْبٌ وَاحِدٌ»</span><small><b>→</b> Premier péché : l'<strong>hypocrisie</strong> de l'invitation ; second : offrir à son frère un repas qu'il refuserait s'il connaissait le sentiment réel. Une politesse apparente peut cacher une faute.</small></span>
+    </div>
+  </div>
+  <div class="key">« Ainsi le serviteur doit-il sonder son intention dans l'ensemble des actions. Il ne doit agir ou s'abstenir que s'il a conscience de l'intention qui l'anime. Si son intention est mauvaise, il doit se garder d'agir. Car l'intention ne relève pas du choix de l'individu. » (p. 34)<span class="arab" lang="ar" dir="rtl">«فَهَكَذَا يَنْبَغِي أَنْ يَتَفَقَّدَ الْعَبْدُ نِيَّتَهُ فِي سَائِرِ الْأَعْمَالِ، فَلَا يُقْدِمُ وَلَا يُحْجِمُ إِلَّا بِنِيَّةٍ، فَإِنْ لَمْ تَحْضُرْهُ النِّيَّةُ تَوَقَّفَ، فَإِنَّ النِّيَّةَ لَا تَدْخُلُ تَحْتَ الِاخْتِيَارِ»</span></div>
+</div></section>
+
+<!-- 17. SYNTHÈSE -->
+<section class="slide"><div class="inner">
+  <div class="kicker">Synthèse & échanges</div>
+  <h2>Ce qu'il faut retenir</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Les idées-forces</h3>
+      <ul>
+        <li>Intention → pureté → sincérité : trois filtres successifs du salut.</li>
+        <li>L'intention est une <strong>disposition du cœur</strong> entre la science et l'action.</li>
+        <li>L'action <strong>hérite du statut</strong> de son mobile (unique, concordant, nécessaire, confortant).</li>
+        <li>L'intention prime car le <strong>cœur est la finalité</strong> ; les membres sont des moyens.</li>
+        <li>L'intention <strong>ne purifie pas l'interdit</strong>, peut <strong>corrompre l'obligatoire</strong>, et <strong>sanctifie le permis</strong>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Pistes de discussion</h3>
+      <ul>
+        <li>Où placez-vous la limite entre « mobile confortant » (le regard des autres qui aide) et ostentation ?</li>
+        <li>« La pensée n'a pas valeur d'intention » : comment cultiver une intention réelle et pas seulement formulée ?</li>
+        <li>Quels actes « permis » de notre quotidien d'étudiants pourrions-nous transformer par l'intention ?</li>
+        <li>Que nous dit l'exemple d'Ahmad ibn Hanbal sur l'exigence envers ceux qui transmettent ?</li>
+        <li>Pourquoi l'intention « ne relève pas du choix » — et comment alors la travailler ?</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+</div>
+
+<nav>
+  <button id="prev" aria-label="Slide précédente">←</button>
+  <div class="progress"><div id="bar"></div></div>
+  <span class="count" id="count"></span>
+  <button id="theme" aria-label="Changer de thème">◐</button>
+  <button id="next" aria-label="Slide suivante">→</button>
+</nav>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+try{const h=parseInt(location.hash.slice(1));if(h>0&&h<=slides.length)i=h-1}catch(e){}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+  slides[i].scrollTop=0;
+  document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+  document.getElementById('bar').style.width=((i+1)/slides.length*100)+'%';
+  history.replaceState(null,'','#'+(i+1));
+}
+document.getElementById('prev').onclick=()=>show(i-1);
+document.getElementById('next').onclick=()=>show(i+1);
+document.getElementById('theme').onclick=()=>{
+  const r=document.documentElement;
+  const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme=dark?'light':'dark';
+};
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}
+  if(e.key==='Home')show(0);
+  if(e.key==='End')show(slides.length-1);
+});
+let x0=null;
+document.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>60)show(i+(dx<0?1:-1));x0=null});
+show(i);
+</script>
+</body>
+</html>
